@@ -66,7 +66,7 @@ class Vocab(object):
         
         vec_file = open(vec_path, 'rt')
         header = vec_file.readline()
-        self.vocab_size, self.word_dim = map(int, header.split())
+        self.vocab_size, self.word_dim = list(map(int, header.split()))
         word_vecs = {}
         for line in vec_file:
             line = line.strip()
@@ -98,7 +98,7 @@ class Vocab(object):
             parts = line.split('\t')
             cur_index = int(parts[0])
             word = parts[1]
-            vector = np.array(map(float,re.split('\\s+', parts[2])), dtype='float32')
+            vector = np.array(list(map(float,re.split('\\s+', parts[2]))), dtype='float32')
             self.word2id[word] = cur_index 
             self.id2word[cur_index] = word
             word_vecs[cur_index] = vector
@@ -122,7 +122,7 @@ class Vocab(object):
         
         vec_file = open(vec_path, 'rt')
 #         header = vec_file.readline()
-#         self.vocab_size, self.word_dim = map(int, header.split())
+#         self.vocab_size, self.word_dim = list(map(int, header.split()))
         word_vecs = {}
         for line in vec_file:
             if line[0] == line[1] == ' ':
@@ -154,7 +154,7 @@ class Vocab(object):
         
         vec_file = open(vec_path, 'rt')
         header = vec_file.readline()
-        self.vocab_size, self.word_dim = map(int, header.split())
+        self.vocab_size, self.word_dim = list(map(int, header.split()))
         self.word_vecs = np.zeros((self.vocab_size+1, self.word_dim), dtype=np.float32) # the last dimension is all zero
         for line in vec_file:
             line = line.strip()
@@ -181,7 +181,7 @@ class Vocab(object):
 
         with open(fname, "rb") as f:
             header = f.readline()
-            cur_vocab_size, self.word_dim = map(int, header.split())
+            cur_vocab_size, self.word_dim = list(map(int, header.split()))
             word_vecs = {}
             binary_len = np.dtype('float32').itemsize * self.word_dim
             for idx in range(cur_vocab_size):
@@ -215,7 +215,7 @@ class Vocab(object):
         # load word vector
         with open(fname, "rb") as f:
             header = f.readline()
-            self.vocab_size, self.word_dim = map(int, header.split())
+            self.vocab_size, self.word_dim = list(map(int, header.split()))
             word_vecs = {}
             binary_len = np.dtype('float32').itemsize * self.word_dim
             for idx in range(self.vocab_size):
